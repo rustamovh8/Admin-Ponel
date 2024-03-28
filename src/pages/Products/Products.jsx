@@ -50,12 +50,12 @@ const Products = () => {
   const imgUrl = import.meta.env.VITE_APP_FILES_URL;
 
   return (
-    <div className="p-[28px] flex flex-col gap-[40px]">
+    <div className="p-[28px] flex flex-col gap-[40px] sm:w-[400px]">
       <div className="flex justify-between items-center">
-        <h1 className="text-[24px] text-[#111927] font-[700]">Products</h1>
+        <h1 className="text-[24px] text-[#111927] font-[700] sm:text-[20px]">Products</h1>
         <Link to={"/dashboard/products/addproducts"}>
-          <Button variant="contained">
-            <AddIcon /> Add order
+          <Button variant="contained" >
+            <AddIcon sx={{fontSize:"20px"}}/> Add order
           </Button>
         </Link>
       </div>
@@ -79,19 +79,27 @@ const Products = () => {
           </FormControl>
         </div>
       </div>
-
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1000 }} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>
-                <input type="checkbox" />
+                <div className="flex items-center gap-[10px]">
+                  <input type="checkbox" />
+                  <h1 className="text-[#5A607F] text-[14px] font-[400]">
+                    Product
+                  </h1>
+                </div>
               </StyledTableCell>
-              <StyledTableCell align="left">Product</StyledTableCell>
-              <StyledTableCell align="center">Inventory</StyledTableCell>
-              <StyledTableCell align="left">Category</StyledTableCell>
-              <StyledTableCell align="left">Price</StyledTableCell>
-              <StyledTableCell align="center">Action</StyledTableCell>
+              {/* <StyledTableCell align="left"></StyledTableCell> */}
+              <StyledTableCell align="left"><h1 className="text-[#5A607F] font-[400] text-[14px]">Inventory</h1></StyledTableCell>
+              <StyledTableCell align="left"><h1 className="text-[#5A607F] font-[400] text-[14px]">Category</h1></StyledTableCell>
+              <StyledTableCell align="left">
+                <h1 className="text-[#5A607F] font-[400] text-[14px]">
+                  Price
+                </h1>
+              </StyledTableCell>
+              <StyledTableCell align="center"><h1 className="text-[#5A607F] font-[400] text-[14px] ">Action</h1></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -102,7 +110,7 @@ const Products = () => {
               ?.map((el) => (
                 <StyledTableRow key={el.id}>
                   <StyledTableCell component="th" scope="row">
-                    <div className="flex gap-[10px]">
+                    <div className="flex items-center gap-[10px]">
                       <input type="checkbox" name="" id="" />
                       <div className="flex items-center gap-[10px]">
                         <img
@@ -110,20 +118,30 @@ const Products = () => {
                           src={`${imgUrl}${el.image}`}
                           alt=""
                         />
-                        <h1>{el.productName}</h1>
+                        <h1 className="text-[#131523] font-[500] text-[14px]">{el.productName}</h1>
                       </div>
                     </div>
                   </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {el.quantity} in stock
+                  <StyledTableCell align="left">
+                    <h1 className="text-[#131523] font-[400] text-[14px]">
+                      {el.quantity} in stock
+                    </h1>
                   </StyledTableCell>
-                  <StyledTableCell align="left">Phone</StyledTableCell>
-                  <StyledTableCell align="left">{el.price}$</StyledTableCell>
+                  <StyledTableCell align="left">
+                    <h1 className="text-[#131523] text-[14px] font-[400]">
+                      Phone
+                    </h1>
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    <h1 className="text-[#131523] font-[400] text-[14px]">
+                      {el.price}$
+                    </h1>
+                  </StyledTableCell>
                   <StyledTableCell align="center">
                     <div>
-                      {/* <IconButton>
+                      <IconButton>
                         <BorderColorOutlinedIcon sx={{ color: "#1E5EFF" }} />
-                      </IconButton> */}
+                      </IconButton>
                       <IconButton onClick={() => dispatch(deleteProduct(el.id))}>
                         <DeleteOutlineIcon sx={{ color: "red" }} />
                       </IconButton>

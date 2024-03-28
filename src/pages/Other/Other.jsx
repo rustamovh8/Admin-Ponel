@@ -17,6 +17,8 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  width: 400,
+  borderRadius: 2,
 };
 
 
@@ -69,46 +71,64 @@ const Other = () => {
     setIdx(el.id)
   };
 
+  const [search, setSearch] = useState('');
+
   return (
-    <div className='p-[28px] flex flex-col gap-[40px] w-[1030px]'>
+    <div className='p-[28px] flex flex-col gap-[40px] sm:p-[20px]'>
       <div className="flex justify-between items-center">
         <div className="flex items-start gap-[8px]">
           <Link className='bg-[#DBEAFE] text-[#1D4ED8] p-[8px_16px] rounded-[4px]' to={"/dashboard/other"} ><h1 className='text-[16px] font-[500]'>Categories</h1></Link>
-          <Link className='text-[#262626]  focus:bg-[#DBEAFE] focus:text-[#1D4ED8] p-[8px_16px] rounded-[4px]' to={"/dashboard/brands"} ><h1 className='text-[16px] font-[500]'>Brands</h1></Link>
-          <Link className='text-[#262626]  focus:bg-[#DBEAFE] focus:text-[#1D4ED8] p-[8px_16px] rounded-[4px]' to={"/dashboard/banners"} ><h1 className='text-[16px] font-[500]'>Banners</h1></Link>
+          <Link className='text-[#262626]  focus:bg-[#DBEAFE] focus:text-[#1D4ED8] p-[8px_16px] rounded-[4px]' to={"/dashboard/other/brands"} ><h1 className='text-[16px] font-[500]'>Brands</h1></Link>
+          <Link className='text-[#262626]  focus:bg-[#DBEAFE] focus:text-[#1D4ED8] p-[8px_16px] rounded-[4px]' to={"/dashboard/other/banners"} ><h1 className='text-[16px] font-[500]'>Banners</h1></Link>
         </div>
-        <Button variant="contained" onClick={() => handleOpen()}><AddIcon /> Add new</Button>
+        <div className='flex sm:hidden'>
+          <Button variant="contained" onClick={() => handleOpen()}><AddIcon /> Add new</Button>
+        </div>
       </div>
-      <div>
-        <TextField id="outlined-basic" label="Search..." variant="outlined" />
+      <div className='flex items-center gap-[10px]'>
+        <TextField
+          id="outlined-basic"
+          label="Search..."
+          variant="outlined"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{ width: "200px" }}
+        />
+        <div className='hidden sm:flex'>
+          <Button variant="contained" onClick={() => handleOpen()} sx={{ width: "130px" }}><AddIcon /> Add new</Button>
+        </div>
       </div>
 
       <section>
-        <div className='grid grid-cols-5 gap-[16px]'>
-          {dataCategories?.map((el) => {
-            return (
-              <div className='p-[24px_20px] flex flex-col gap-[16px] border rounded-[4px] justify-center items-start'>
-                <div className='flex w-[140px]  justify-between items-start'>
-                  {
-                    el.categoryImage == "" || el.categoryImage == null ?
-                      <img className='w-[56px] h-[56px]' src="https://cdn4.vectorstock.com/i/1000x1000/66/58/icons-of-products-categories-white-and-color-vector-9016658.jpg" alt="" /> :
-                      <img className='w-[56px] h-[56px]' src={`${imgUrl}${el?.categoryImage}`} alt="" />
-                  }
-                  <div className='flex flex-col'>
-                    <IconButton onClick={() => { handleOpenEdit(el), setIdx(el.id) }} >
-                      <BorderColorOutlinedIcon sx={{ color: "#1E5EFF", fontSize: "17px" }} />
-                    </IconButton>
-                    <IconButton onClick={() => dispatch(deleteCategories(el.id))}>
-                      <DeleteOutlineIcon sx={{ color: "#F04438", fontSize: "18px" }} />
-                    </IconButton>
+        <div className='grid grid-cols-5 gap-[16px] sm:grid sm:grid-cols-2'>
+          {dataCategories
+            .filter((el) => {
+              return el.categoryName.toLowerCase().trim().includes(search)
+            })
+            ?.map((el) => {
+              return (
+                <div className='p-[24px_20px] flex flex-col gap-[16px] border rounded-[4px] justify-center items-start'>
+                  <div className='flex w-[140px]  justify-between items-start'>
+                    {
+                      el.categoryImage == "" || el.categoryImage == null ?
+                        <img className='w-[56px] h-[56px]' src="https://cdn4.vectorstock.com/i/1000x1000/66/58/icons-of-products-categories-white-and-color-vector-9016658.jpg" alt="" /> :
+                        <img className='w-[56px] h-[56px]' src={`${imgUrl}${el?.categoryImage}`} alt="" />
+                    }
+                    <div className='flex flex-col'>
+                      <IconButton onClick={() => { handleOpenEdit(el), setIdx(el.id) }} >
+                        <BorderColorOutlinedIcon sx={{ color: "#1E5EFF", fontSize: "17px" }} />
+                      </IconButton>
+                      <IconButton onClick={() => dispatch(deleteCategories(el.id))}>
+                        <DeleteOutlineIcon sx={{ color: "#F04438", fontSize: "18px" }} />
+                      </IconButton>
+                    </div>
+                  </div>
+                  <div>
+                    <h1 className='text-[#000] font-[400] text-[16px]'>{el?.categoryName}</h1>
                   </div>
                 </div>
-                <div>
-                  <h1 className='text-[#000] font-[400] text-[16px]'>{el?.categoryName}</h1>
-                </div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
       </section>
 
@@ -122,7 +142,6 @@ const Other = () => {
       >
         <Box sx={style}>
           <div className='flex flex-col gap-[24px]'>
-
             <div className='flex justify-between items-center'>
               <h1 className='text-[#131523] text-[20px] font-[700]'>Edit category</h1>
               <svg onClick={handleCloseEdit} xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -130,7 +149,7 @@ const Other = () => {
               </svg>
             </div>
 
-            <input value={nameCategories} onChange={(e) => setnameCategories(e.target.value)} className='p-[16px] border w-[460px]' placeholder='Product name' type="text" />
+            <input value={nameCategories} onChange={(e) => setnameCategories(e.target.value)} className='p-[16px] border w-[333px] rounded-[4px]' placeholder='Product name' type="text" />
 
             <div className="border border-dashed p-[20px_0px] border-[#A1A7C4] rounded-[4px]">
               <div className="p-[0px_30px] flex flex-col gap-[8px] justify-center items-center">
@@ -177,7 +196,7 @@ const Other = () => {
               </svg>
             </div>
 
-            <input value={product.ProductName} onChange={handleChangeCategories} name='ProductName' className='p-[16px] border w-[460px]' placeholder='Product name' type="text" />
+            <input value={product.ProductName} onChange={handleChangeCategories} name='ProductName' className='p-[16px] border w-[333px] rounded-[4px]' placeholder='Product name' type="text" />
 
             <div className="border border-dashed p-[20px_0px] border-[#A1A7C4] rounded-[4px]">
               <div className="p-[0px_30px] flex flex-col gap-[8px] justify-center items-center">

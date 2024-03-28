@@ -62,59 +62,49 @@ const EditProfile = () => {
 
     return (
         <>
-            <div className="w-[1100px] flex justify-between m-auto mt-[2%]">
-                <div className="w-[85%] m-auto shadow-xl">
+            <div className="p-[28px] flex justify-between">
+                <div className="shadow-xl p-[20px] flex flex-col gap-[10px]">
                     <h1 className="text-[#DB4444] font-[700] p-[20px] text-[18px]">
                         ChangeProfile
                     </h1>
-                    <div className="flex justify-around flex-wrap">
+                    <div className="flex justify-around items-center flex-wrap gap-[20px]">
                         <TextField
-                            required
-                            id="outlined-required"
                             label="First name"
                             value={product.FirstName}
                             name="FirstName"
                             onChange={handleChange}
-                            sx={{ width: "46%", marginBottom: "2%" }}
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                         />
 
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                             label="Last name"
                             value={product.LastName}
                             name="LastName"
                             onChange={handleChange}
-                            sx={{ width: "46%", marginBottom: "2%" }}
                         />
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                             label="Email address"
                             value={product.Email}
                             name="Email"
                             onChange={handleChange}
-                            sx={{ width: "46%", marginBottom: "2%" }}
                         />
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                             label="Phone Number"
                             value={product.PhoneNumber}
                             name="PhoneNumber"
                             onChange={handleChange}
-                            sx={{ width: "46%", marginBottom: "2%" }}
                         />
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[80%] p-[15px] rounded-[4px] sm:w-[100%]"
                             label="Dob"
                             value={product.Dob}
                             name="Dob"
                             onChange={handleChange}
-                            sx={{ width: "80%", marginBottom: "2%" }}
                         />
-                        <div className="border border-dashed mt-5 border-[#ccc] p-[20px] rounded-md text-center">
+                        <div className="border border-dashed mt-5 border-[#ccc] p-[20px] rounded-[4px] text-center">
                             <label htmlFor="fileInput" className="block mb-3">
                                 <img
                                     src={img}
@@ -141,40 +131,34 @@ const EditProfile = () => {
                     <h1 className=" font-[500] p-[20px] text-[18px]">Password changes</h1>
 
 
-                    <div className="flex justify-around flex-wrap">
+                    <div className="flex justify-around flex-wrap gap-[20px]">
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                             defaultValue=""
                             placeholder="Current password"
-                            sx={{ width: "96%", marginBottom: "2%" }}
                         />
 
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                             defaultValue=""
                             placeholder="New password"
-                            sx={{ width: "46%", marginBottom: "2%" }}
                         />
                         <TextField
-                            required
-                            id="outlined-required"
+                            className="border w-[46%] p-[15px] rounded-[4px] sm:w-[100%]"
                             defaultValue=""
                             placeholder="Confirm new password"
-                            sx={{ width: "46%", marginBottom: "2%" }}
                         />
                     </div>
-                    <div className="pb-[20px]">
+                    <div className="flex justify-end pt-[10px] gap-[10px]">
                         <Link to={"/dashboard/profile"}>
-                            <button className=" ml-[57%] w-[16%] mt-[2%] text-[16px] font-mono font-[800] p-[10px] rounded-[5px]">
+                            <button className=" text-[16px] font-mono font-[800] p-[10px] rounded-[5px] ">
                                 Cancel
 
                             </button>
                         </Link>
                         <button
                             onClick={() => { dispatch(putProfile(product)), navigate("/dashboard/profile") }}
-                            className="bg-[#DB4444] text-[white] w-[25%] mt-[2%] text-[16px] font-mono font-[800] p-[10px] rounded-[5px]"
+                            className="bg-[#DB4444] text-[white] text-[16px] font-mono font-[800] p-[10px] rounded-[5px]"
                         >
                             Save changes
                         </button>

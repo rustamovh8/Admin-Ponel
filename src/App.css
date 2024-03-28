@@ -5,6 +5,7 @@ html,
 body {
   position: relative;
   height: 100%;
+  background-color: rgb(249, 250, 252);
 }
 
 body {
@@ -38,5 +39,5 @@ body {
 }
 
 .bg {
-  background: linear-gradient(#272975, #1c2536  , #1c2536);
+  background: linear-gradient(#272975, #1c2536, #1c2536);
 }

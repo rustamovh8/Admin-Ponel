@@ -43,11 +43,11 @@ const router = createBrowserRouter([
         element: <AddProducts />,
       },
       {
-        path: "brands",
+        path: "other/brands",
         element: <Brands />
       },
       {
-        path: "banners",
+        path: "other/banners",
         element: <Banners />
       },
       {

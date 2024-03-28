@@ -1,12 +1,13 @@
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import {
+    Box,
     Button,
     FormControl,
     InputLabel,
     MenuItem,
+    Modal,
     Select,
     Switch,
-    TextField,
 } from "@mui/material";
 import ReactQuill from "react-quill";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +18,18 @@ import DoneOutlineOutlinedIcon from '@mui/icons-material/DoneOutlineOutlined';
 import { getBrands, getColor, getSubCategories, postProduct } from "../../reduser/counter";
 import img from "../../assets/img/div.MuiAvatar-root.svg"
 
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const AddProducts = () => {
 
@@ -83,46 +96,50 @@ const AddProducts = () => {
 
     const navigate = useNavigate();
 
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
 
     return (
-        <div className="flex flex-col gap-[24px] p-[28px]">
+        <div className="flex flex-col gap-[40px] p-[28px] sm:p-[20px] sm:gap-[24px]">
             <div className="flex items-center justify-between">
-                <h1 className="flex items-center gap-[10px] w-[300px] font-[700] text-[24px] text-[#111927]">
+                <h1 className="flex items-center gap-[10px] font-[700] text-[24px] text-[#111927] sm:text-[16px]">
                     <Link to={"/dashboard/products"}>
                         <KeyboardBackspaceIcon />
                     </Link>
                     <span>Products / </span>
                     <span>Add new</span>
                 </h1>
-                <div className="flex gap-[12px] items-center">
+                <div className="flex gap-[12px] items-center sm:hidden">
                     <Link to={"/dashboard/products"}>
-                        <Button variant="outlined">Cancel</Button>
+                        <Button variant="outlined" >Cancel</Button>
                     </Link>
-                    <Button onClick={() => { dispatch(postProduct(product)),navigate("/dashboard/products") }} variant="contained">Save</Button>
+                    <Button onClick={() => { dispatch(postProduct(product)), navigate("/dashboard/products") }} variant="contained">Save</Button>
                 </div>
             </div>
-            <section className="flex gap-[40px] items-start">
-                <div className="flex flex-col gap-[40px] items-start">
+            <section className="flex gap-[40px] items-start sm:flex-col">
+                <div className="flex flex-col gap-[40px] items-start sm:gap-[24px]">
                     <div className="flex flex-col gap-[16px]">
                         <h1 className="text-[#131523]  text-[16px] font-[700]">
                             Information
                         </h1>
                         <div className="flex gap-[16px]">
-                            <input value={product.ProductName} onChange={handleChange} name='ProductName' className='w-[443px] h-[45px] border p-[16px] rounded-[4px]' placeholder='Product name' type="text" />
-                            <input value={product.Code} onChange={handleChange} name="Code" className='w-[118px] h-[45px] border p-[16px] rounded-[4px]' placeholder='Code' type="text" />
+                            <input value={product.ProductName} onChange={handleChange} name='ProductName' className='w-[450px] h-[45px] border p-[16px] rounded-[4px] sm:w-[220px]' placeholder='Product name' type="text" />
+                            <input value={product.Code} onChange={handleChange} name="Code" className='w-[123.4px] h-[45px] border p-[16px] rounded-[4px] sm:w-[125px]' placeholder='Code' type="text" />
                         </div>
-                        <div className="w-[575px] rounded-[4px] h-[230px] overflow-hidden ">
+                        <div className="w-[590px] rounded-[4px] h-[230px] overflow-hidden sm:w-[360px] sm:h-[170px]">
                             <ReactQuill
                                 value={product.Description}
                                 onChange={handleChangeDescription}
                                 theme="snow"
-                                style={{ height: "170px", borderRadius: "5px" }}
+                                className="h-[185px] sm:h-[100px]"
                                 placeholder="Description"
                             />
                         </div>
                     </div>
                     <div className="flex gap-[16px]">
-                        <FormControl sx={{ width: "280px" }}>
+                        <FormControl className="w-[285px] sm:w-[170px]">
                             <InputLabel id="demo-simple-select-label">Categories</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
@@ -138,7 +155,7 @@ const AddProducts = () => {
                                 })}
                             </Select>
                         </FormControl>
-                        <FormControl sx={{ width: "280px" }}>
+                        <FormControl className="w-[285px] sm:w-[170px]">
                             <InputLabel id="demo-simple-select-label">Brands</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
@@ -157,10 +174,10 @@ const AddProducts = () => {
                     </div>
                     <div className="flex flex-col gap-[16px] items-start ">
                         <h1 className="text-[#131523] text-[16px] font-[700]">Price</h1>
-                        <div className="flex items-start gap-[16px]">
-                            <input value={product.Price} onChange={handleChange} name="Price" className='w-[29.2%] h-[45px] border rounded-[5px] px-[10px]' placeholder='Product price' type="number" />
-                            <input value={product.DiscountPrice} onChange={handleChange} name="DiscountPrice" className='w-[29.2%] h-[45px] border rounded-[5px] px-[10px]' placeholder='Discount' type="number" />
-                            <input value={product.Quantity} onChange={handleChange} name="Quantity" className='w-[29.2%] h-[45px] border rounded-[5px] px-[10px]' placeholder='Count' type="number" />
+                        <div className="flex items-start gap-[16px] sm:flex-wrap">
+                            <input value={product.Price} onChange={handleChange} name="Price" className='w-[185px] h-[45px] border rounded-[5px] px-[10px] sm:w-[170px]' placeholder='Product price' type="number" />
+                            <input value={product.DiscountPrice} onChange={handleChange} name="DiscountPrice" className='w-[185px] h-[45px] border rounded-[5px] px-[10px] sm:w-[170px]' placeholder='Discount' type="number" />
+                            <input value={product.Quantity} onChange={handleChange} name="Quantity" className='w-[185px] h-[45px] border rounded-[5px] px-[10px] sm:w-[170px]' placeholder='Count' type="number" />
                         </div>
                         <div className="flex items-center gap-[12px] p-[8px]">
                             <Switch />
@@ -170,7 +187,7 @@ const AddProducts = () => {
                         </div>
                     </div>
 
-                    <div className="flex p-[16px] items-center justify-between w-[580px] rounded-[4px] border">
+                    <div className="flex p-[16px] items-center justify-between w-[590px] rounded-[4px] border sm:w-[360px]">
                         <div className="flex flex-col gap-[4px]">
                             <h1 className="text-[#131523] text-[16px] font-[700]">
                                 Different Options
@@ -185,11 +202,11 @@ const AddProducts = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-[28px]">
-                    <div className='w-[350px] p-[20px] border rounded-[4px] flex flex-col gap-[22px]'>
+                <div className="flex flex-col gap-[40px] sm:gap-[24px]">
+                    <div className='w-[400px] p-[20px] border rounded-[4px] flex flex-col gap-[22px] sm:w-[360px]'>
                         <div className='flex justify-between'>
                             <p className="text-[#131523] text-[16px] font-[700]">Colors:</p>
-                            <p className='text-[#2563EB] text-[14px] font-[500]' onClick={() => { setTheme(true), setColorModal(true) }}>Create New</p>
+                            <p className='text-[#2563EB] text-[14px] font-[500] cursor-pointer' onClick={handleOpen}>Create New</p>
                         </div>
                         <div className='flex overflow-auto'>
                             {
@@ -234,9 +251,25 @@ const AddProducts = () => {
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div className="hidden sm:flex sm:gap-[12px]">
+                    <Link to={"/dashboard/products"}>
+                        <Button variant="outlined" >Cancel</Button>
+                    </Link>
+                    <Button onClick={() => { dispatch(postProduct(product)), navigate("/dashboard/products") }} variant="contained">Save</Button>
                 </div>
             </section>
+
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                </Box>
+            </Modal>
         </div>
     );
 };

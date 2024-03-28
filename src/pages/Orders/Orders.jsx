@@ -41,8 +41,8 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-    createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid","Ready"),
-    createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid","Ready"),
+    createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid", "Ready"),
+    createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid", "Ready"),
     createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid", "Ready"),
     createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid", "Ready"),
     createData('#12512B', "May 5, 4:20 PM", "Tom Anderson", "Paid", "Ready"),
@@ -62,10 +62,10 @@ const Orders = () => {
     };
 
     return (
-        <div className="p-[28px] flex flex-col gap-[40px] w-[1100px]">
+        <div className="p-[28px] flex flex-col gap-[40px] sm:w-[400px]">
             <div className="flex justify-between ">
-                <h1 className="text-[#111927] text-[24px] font-[700]">Orders</h1>
-                <Button variant="contained">Add order</Button>
+                <h1 className="text-[#111927] text-[24px] font-[700] sm:text-[20px]">Orders</h1>
+                <Button variant="contained" sx={{ fontSize: "12px" }}>Add order</Button>
             </div>
             <div className="flex flex-col gap-[24px]">
                 <div className="flex items-start gap-[12px]">
@@ -85,49 +85,67 @@ const Orders = () => {
                         </Select>
                     </FormControl>
                 </div>
-                <div>
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>
-                                        <div className="flex gap-[10px] items-center">
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 1000 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>
+                                    <div className="flex gap-[10px] items-center">
+                                        <input type="checkbox" />
+                                        <h1 className="text-[#5A607F] font-[400] text-[14px] sm:w-[110px]">Order</h1>
+                                    </div>
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                    <h1 className="text-[#5A607F] font-[400] text-[14px] sm:w-[110px] sm:text-center">
+                                        Date
+                                    </h1>
+                                </StyledTableCell>
+                                <StyledTableCell>Customer</StyledTableCell>
+                                <StyledTableCell><h1 className="text-[#5A607F] font-[400] text-[14px] sm:w-[110px]">Payment status</h1></StyledTableCell>
+                                <StyledTableCell>
+                                    <h1 className="text-[#5A607F] font-[400] text-[14px] sm:w-[110px]">
+                                        Order Status
+                                    </h1>
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                    <h1 className="text-[#5A607F] font-[400] text-[14px] sm:w-[110px]">
+                                        Total
+                                    </h1>
+                                </StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row) => (
+                                <StyledTableRow key={row.name}>
+                                    <StyledTableCell component="th" scope="row">
+                                        <div className="flex items-center gap-[10px]">
                                             <input type="checkbox" />
-                                            <h1>Order</h1>
+                                            <h1 className="text-[#131523] font-[500] text-[14px]">{row.name}</h1>
                                         </div>
                                     </StyledTableCell>
-                                    <StyledTableCell>Date</StyledTableCell>
-                                    <StyledTableCell>Customer</StyledTableCell>
-                                    <StyledTableCell>Payment status</StyledTableCell>
-                                    <StyledTableCell>Order Status</StyledTableCell>
-                                    <StyledTableCell>Total</StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <StyledTableRow key={row.name}>
-                                        <StyledTableCell component="th" scope="row">
-                                            <div className="flex items-center gap-[10px]">
-                                                <input type="checkbox" />
-                                                <h1>{row.name}</h1>
-                                            </div>
-                                        </StyledTableCell>
-                                        <StyledTableCell>{row.calories}</StyledTableCell>
-                                        <StyledTableCell>{row.fat}</StyledTableCell>
-                                        <StyledTableCell>
-                                            <div className="bg-[#C4F8E2] w-[45px] h-[24px] rounded-[4px] flex items-center justify-center">
-                                                <h1 className="text-[#06A561] texxt-[14px] font-[400] ">{row.carbs}</h1>
-                                            </div></StyledTableCell>
-                                        <StyledTableCell><div className="bg-[#F99600] w-[58px] h-[24px] rounded-[4px] flex items-center justify-center">
-                                            <h1 className="text-[#FFF] texxt-[14px] font-[400]">{row.protein}</h1>
+                                    <StyledTableCell>
+                                        <h1 className="text-[#131523] font-[500] text-[14px] sm:w-[110px]">{row.calories}</h1>
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <h1 className="text-[#131523] font-[500] text-[14px] sm:w-[110px]">
+                                            {row.fat}
+                                        </h1>
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <div className="bg-[#C4F8E2] w-[45px] h-[24px] rounded-[4px] flex items-center justify-center ">
+                                            <h1 className="text-[#06A561] text-[14px] font-[400] ">{row.carbs}</h1>
                                         </div></StyledTableCell>
-                                        <StyledTableCell><h1 className="text-[#131523] text-[14px] font-[400]">$49.90</h1></StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
+                                    <StyledTableCell>
+                                        <div className="bg-[#F99600] w-[58px] h-[24px] rounded-[4px] flex items-center justify-center">
+                                            <h1 className="text-[#FFF] text-[14px] font-[400]">{row.protein}</h1>
+                                        </div>
+                                    </StyledTableCell>
+                                    <StyledTableCell><h1 className="text-[#131523] text-[14px] font-[400]">$49.90</h1></StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
         </div>
     );
